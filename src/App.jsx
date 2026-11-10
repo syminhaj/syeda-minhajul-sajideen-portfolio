@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import SplashCursor from './components/SplashCursor'
 import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
 import About from './components/About'
@@ -24,6 +25,13 @@ export default function App() {
 
   return (
     <>
+      <SplashCursor
+        VELOCITY_DISSIPATION={3}
+        SPLAT_FORCE={3500}
+        COLOR_UPDATE_SPEED={18}
+        COLOR="#ffffff"
+        RAINBOW_MODE={false}
+      />
       <Preloader />
       <Navbar />
       <main>
