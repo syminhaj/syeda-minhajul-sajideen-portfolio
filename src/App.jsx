@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import About from './components/About'
 import TechnicalSkills from './components/TechnicalSkills'
 import Projects from './components/Projects'
+import Internships from './components/Internships'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
         <About />
         <TechnicalSkills />
         <Projects />
+        <Internships />
       </main>
       <Footer />
     </div>
