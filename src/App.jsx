@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
 import About from './components/About'
 import TechnicalSkills from './components/TechnicalSkills'
@@ -21,6 +22,7 @@ export default function App() {
 
   return (
     <>
+      <Preloader />
       <Navbar />
       <main>
         <About />
