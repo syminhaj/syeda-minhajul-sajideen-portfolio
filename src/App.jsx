@@ -4,6 +4,7 @@ import 'aos/dist/aos.css'
 import Navbar from './components/Navbar'
 import About from './components/About'
 import TechnicalSkills from './components/TechnicalSkills'
+import Projects from './components/Projects'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
       <main className="flex-grow">
         <About />
         <TechnicalSkills />
+        <Projects />
       </main>
       <Footer />
     </div>
