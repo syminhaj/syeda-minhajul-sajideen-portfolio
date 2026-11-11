@@ -116,11 +116,11 @@ export default function Hero() {
           aria-hidden="true"
         />
 
-        {/* ── PLAY REEL button — right side, vertically centred ─────── */}
+        {/* ── PLAY REEL button — positioned on the laptop lid (bottom-right) ─────── */}
         <motion.div
-          className="absolute right-6 md:right-14 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-3"
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
+          className="absolute right-[8%] sm:right-[12%] md:right-[14%] lg:right-[16%] bottom-[14%] sm:bottom-[16%] md:bottom-[18%] z-20 flex flex-col items-center gap-2"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Circle play button */}
@@ -128,22 +128,22 @@ export default function Hero() {
             type="button"
             onClick={() => setShowVideo(true)}
             aria-label="Play intro reel"
-            className="group relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full bg-black/70 border-2 border-white/30 hover:bg-black/90 hover:border-white/60 backdrop-blur-sm transition-all duration-300 hover:scale-110 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+            className="group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-black/60 border border-white/20 hover:bg-black/80 hover:border-white/50 backdrop-blur-sm transition-all duration-300 hover:scale-110 shadow-[0_0_25px_rgba(0,0,0,0.6)] cursor-pointer"
           >
-            {/* Pulsing ring */}
-            <span className="absolute inset-0 rounded-full border-2 border-white/20 animate-ping" aria-hidden="true" />
+            {/* Subtle pulsing ring */}
+            <span className="absolute inset-0 rounded-full border border-white/20 animate-ping opacity-60" aria-hidden="true" />
             {/* Play triangle */}
             <svg
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 md:w-8 md:h-8 text-white translate-x-0.5"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-white translate-x-0.5 opacity-90 group-hover:opacity-100 transition-opacity"
               aria-hidden="true"
             >
               <path d="M8 5v14l11-7z" />
             </svg>
           </button>
           {/* Label */}
-          <span className="text-white font-mono text-[10px] md:text-xs uppercase tracking-[0.25em] font-bold">
+          <span className="text-white/80 group-hover:text-white font-mono text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.25em] font-semibold drop-shadow-sm select-none">
             Play Reel
           </span>
         </motion.div>
