@@ -18,8 +18,6 @@ export default function Navbar() {
 
   const navLinks = ['Home', 'About', 'Skills', 'Projects', 'Contact']
 
-  const hireMeMailto = `mailto:${personalInfo.emails.primary}?subject=Hiring Inquiry – Portfolio&body=Hello ${personalInfo.name},%0D%0A%0D%0AI came across your portfolio and would like to discuss an opportunity with you.%0D%0A%0D%0ALooking forward to hearing from you.%0D%0ABest Regards,`
-
   return (
     <nav
       className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
@@ -54,7 +52,7 @@ export default function Navbar() {
         {/* Desktop Hire Me Button */}
         <div className="hidden md:block">
           <a
-            href={hireMeMailto}
+            href="#contact"
             className="px-6 py-2.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-all duration-300 inline-block"
           >
             Hire Me
@@ -111,7 +109,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href={hireMeMailto}
+            href="#contact"
             onClick={() => setIsOpen(false)}
             className="w-full text-center py-3 mt-2 bg-white text-[#ff2a2a] font-bold rounded-lg shadow-md hover:bg-gray-100 transition-colors"
           >
