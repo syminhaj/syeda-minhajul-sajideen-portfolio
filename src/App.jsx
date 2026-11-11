@@ -4,6 +4,7 @@ import 'aos/dist/aos.css'
 import SplashCursor from './components/SplashCursor'
 import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
+import Hero from './components/Hero'
 import About from './components/About'
 import TechnicalSkills from './components/TechnicalSkills'
 import Services from './components/Services'
@@ -35,6 +36,7 @@ export default function App() {
       <Preloader />
       <Navbar />
       <main>
+        <Hero />
         <About />
         <TechnicalSkills />
         <Services />
