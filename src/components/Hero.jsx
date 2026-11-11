@@ -1,154 +1,157 @@
-// Hero.jsx — Full-screen video hero with entrance animations
-// Displays the main headline, subtitle, and CTA buttons over a background video.
-import { useRef } from 'react'
+// Hero.jsx — Full-screen hero matching the red-background reference design.
+// Profile image is displayed prominently; text sits bottom-left over the red bg.
 import { motion } from 'framer-motion'
 import { heroContent, personalInfo } from '../data/portfolioData'
-// Import via Vite so the file gets hashed and bundled correctly
-import heroVideo from '../assets/hero/hero.mp4'
-
-// Small decorative arrow that points toward the CTA buttons
-function ArrowDown() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="w-5 h-5 animate-bounce"
-      aria-hidden="true"
-    >
-      <path d="M12 5v14M5 12l7 7 7-7" />
-    </svg>
-  )
-}
+// Profile image imported via Vite so it gets hashed and bundled
+import profileImg from '../assets/about/profile.png'
 
 export default function Hero() {
-  const videoRef = useRef(null)
-
-  // Staggered entrance: each child animates in after the previous one
-  const container = {
-    hidden: {},
+  // Simple fade-up variant reused on each text block
+  const fadeUp = (delay = 0) => ({
+    hidden: { opacity: 0, y: 32 },
     show: {
-      transition: { staggerChildren: 0.18, delayChildren: 0.3 },
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1], delay },
     },
-  }
-
-  const item = {
-    hidden: { opacity: 0, y: 40 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
-  }
+  })
 
   return (
     <section
       id="home"
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]"
+      className="relative w-full min-h-screen bg-[#ff2a2a] overflow-hidden flex flex-col"
     >
-      {/* ── Background video ─────────────────────────────────────── */}
-      <video
-        ref={videoRef}
-        src={heroVideo}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-contain opacity-30 pointer-events-none"
-        aria-hidden="true"
-      />
+      {/* ── Profile image — centred, fills the vertical space ──────── */}
+      {/* On mobile it sits at the top; on desktop it stays centred.   */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+        <img
+          src={profileImg}
+          alt={`Illustrated portrait of ${personalInfo.name}`}
+          // object-contain keeps the full figure visible at every breakpoint
+          className="h-full max-h-[90vh] w-auto object-contain object-center opacity-90"
+          draggable="false"
+        />
+      </div>
 
-      {/* ── Dark gradient overlay — improves readability ──────────── */}
+      {/* ── Subtle left-to-right gradient so text stays readable ───── */}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/80 via-[#0a0a0a]/40 to-[#0a0a0a]/90 pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-r from-[#ff2a2a]/95 via-[#ff2a2a]/40 to-transparent pointer-events-none"
         aria-hidden="true"
       />
-
-      {/* ── Animated red accent circle (decorative) ───────────────── */}
+      {/* Bottom fade so text block sits on a solid-enough surface */}
       <div
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#ff2a2a]/10 rounded-full blur-3xl pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-[#cc1a1a]/80 to-transparent pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* ── Main content ──────────────────────────────────────────── */}
-      <motion.div
-        className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 text-center"
-        variants={container}
-        initial="hidden"
-        animate="show"
-      >
-        {/* Greeting pill */}
-        <motion.div variants={item} className="inline-flex items-center gap-2 mb-6">
-          <span className="inline-block bg-[#ff2a2a]/15 border border-[#ff2a2a]/30 text-[#ff2a2a] text-sm font-mono uppercase tracking-widest px-4 py-1.5 rounded-full">
-            {heroContent.greeting}
-          </span>
-        </motion.div>
+      {/* ── Text content — pinned to bottom-left ───────────────────── */}
+      <div className="relative z-10 mt-auto px-6 md:px-14 pb-16 md:pb-20 max-w-2xl">
 
-        {/* Main h1 — the ONLY h1 on the page */}
+        {/* Greeting + name */}
         <motion.h1
-          variants={item}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[1.05] tracking-tighter text-white mb-4"
+          variants={fadeUp(0.2)}
+          initial="hidden"
+          animate="show"
+          // The only <h1> on the page
+          className="text-4xl sm:text-5xl md:text-6xl font-black leading-[1.1] tracking-tight text-white mb-2 drop-shadow-sm"
         >
-          {/* Static first line */}
-          <span className="block">{personalInfo.title}</span>
-          {/* Red accent highlight */}
-          <span className="block text-[#ff2a2a]">{heroContent.titleHighlight}</span>
+          Hi, I&apos;m {personalInfo.name},
         </motion.h1>
+
+        {/* Role — large outlined / stroked text to match the reference */}
+        <motion.p
+          variants={fadeUp(0.35)}
+          initial="hidden"
+          animate="show"
+          className="text-4xl sm:text-5xl md:text-6xl font-black leading-[1.1] tracking-tight mb-6"
+          style={{
+            // Text stroke: white outline on transparent fill — the reference look
+            WebkitTextStroke: '2px white',
+            color: 'transparent',
+          }}
+          aria-label={heroContent.titleHighlight}
+        >
+          {heroContent.titleHighlight}
+        </motion.p>
 
         {/* Subtitle */}
         <motion.p
-          variants={item}
-          className="max-w-2xl mx-auto text-white/60 text-base md:text-lg leading-relaxed mt-6 mb-10"
+          variants={fadeUp(0.5)}
+          initial="hidden"
+          animate="show"
+          className="text-white/80 text-sm md:text-base leading-relaxed max-w-sm mb-8"
         >
           {heroContent.subtitle}
         </motion.p>
 
         {/* CTA buttons */}
         <motion.div
-          variants={item}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          variants={fadeUp(0.65)}
+          initial="hidden"
+          animate="show"
+          className="flex flex-wrap gap-3"
         >
-          {/* Primary — View My Work */}
+          {/* Primary */}
           <a
             href={heroContent.ctaPrimary.href}
-            className="group inline-flex items-center gap-2 bg-[#ff2a2a] hover:bg-[#e02020] text-white font-bold uppercase tracking-wider text-sm px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,42,42,0.4)]"
+            className="inline-flex items-center gap-2 bg-white text-black font-bold uppercase tracking-wider text-sm px-7 py-3.5 rounded-full transition-all duration-300 hover:bg-gray-100 hover:scale-105 shadow-lg"
           >
             {heroContent.ctaPrimary.text}
-            <ArrowDown />
+            {/* Down-arrow icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-4 h-4"
+              aria-hidden="true"
+            >
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
           </a>
 
-          {/* Secondary — Contact Me */}
+          {/* Secondary */}
           <a
             href={heroContent.ctaSecondary.href}
-            className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/40 text-white font-bold uppercase tracking-wider text-sm px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 backdrop-blur-sm"
+            className="inline-flex items-center gap-2 bg-black/20 hover:bg-black/30 border border-white/40 text-white font-bold uppercase tracking-wider text-sm px-7 py-3.5 rounded-full transition-all duration-300 hover:scale-105 backdrop-blur-sm"
           >
             {heroContent.ctaSecondary.text}
           </a>
 
-          {/* Resume button — only shown when ctaResume is not null */}
+          {/* Resume — only if portfolioData provides a URL */}
           {heroContent.ctaResume && (
             <a
               href={heroContent.ctaResume.href}
               download
-              className="inline-flex items-center gap-2 bg-transparent border border-[#ff2a2a]/50 hover:border-[#ff2a2a] text-[#ff2a2a] font-bold uppercase tracking-wider text-sm px-8 py-4 rounded-full transition-all duration-300 hover:scale-105"
+              className="inline-flex items-center gap-2 bg-transparent border border-white text-white font-bold uppercase tracking-wider text-sm px-7 py-3.5 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:scale-105"
             >
+              {/* Document icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-4 h-4"
+                aria-hidden="true"
+              >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
               {heroContent.ctaResume.text}
             </a>
           )}
         </motion.div>
+      </div>
 
-        {/* Scroll hint */}
-        <motion.p
-          variants={item}
-          className="mt-16 text-white/30 text-xs uppercase tracking-[0.3em] font-mono"
-        >
-          Scroll to explore
-        </motion.p>
-      </motion.div>
-
-      {/* ── Bottom fade to blend into the next section ───────────── */}
+      {/* ── Bottom fade blending into the next (dark) section ──────── */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#0a0a0a] to-transparent pointer-events-none"
         aria-hidden="true"
       />
     </section>
