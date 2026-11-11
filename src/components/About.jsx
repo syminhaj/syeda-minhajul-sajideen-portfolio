@@ -68,7 +68,7 @@ export default function About() {
                 {/* Photo Inside */}
                 <img
                   src={stackImage}
-                  alt={personalInfo.name}
+                  alt="Syeda Minhajul Sajideen — Data Analyst, TAP Academy student"
                   className="w-full h-[calc(100%-14px)] rounded-xl object-cover object-top shadow-inner"
                 />
               </div>
